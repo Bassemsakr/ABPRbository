@@ -59,6 +59,20 @@
         </ng-template>
       </ngx-datatable-column>
       <ngx-datatable-column [name]="'::ShortBio' | abpLocalization" prop="shortBio"></ngx-datatable-column>
+      <ngx-datatable-column [name]="'::Active' | abpLocalization" [width]="100">
+        <ng-template let-row="row" ngx-datatable-cell-template>
+          <div class="form-check form-switch">
+            <input 
+              type="checkbox" 
+              class="form-check-input" 
+              [checked]="row.isActive"
+              (change)="toggleActiveStatus(row)"
+              id="active-toggle-{{row.id}}"
+            >
+            <label class="form-check-label" for="active-toggle-{{row.id}}"></label>
+          </div>
+        </ng-template>
+       </ngx-datatable-column>
     </ngx-datatable>
   </div>
 </div>

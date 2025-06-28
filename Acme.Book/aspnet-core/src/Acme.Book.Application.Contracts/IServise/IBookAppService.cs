@@ -1,4 +1,5 @@
-﻿using Acme.Book.Dtos.BookDtos;
+﻿using Acme.Book.Dtos.AuthorDtos;
+using Acme.Book.Dtos.BookDtos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,5 +17,7 @@ namespace Acme.Book.IServise
         PagedAndSortedResultRequestDto, 
         CreateUpdateBookDto> 
     {
+        Task<ListResultDto<ActiveAuthorLookupDto>> GetActiveAuthorLookupAsync();
+        Task<ListResultDto<AuthorLookupDto>> GetAuthorLookupAsync();
     }
 }

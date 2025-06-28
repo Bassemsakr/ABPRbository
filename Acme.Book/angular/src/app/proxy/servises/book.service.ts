@@ -1,7 +1,8 @@
 import { RestService, Rest } from '@abp/ng.core';
-import type { PagedAndSortedResultRequestDto, PagedResultDto } from '@abp/ng.core';
+import type { ListResultDto, PagedAndSortedResultRequestDto, PagedResultDto } from '@abp/ng.core';
 import { Injectable } from '@angular/core';
-import type { BookDto, CreateUpdateBookDto } from '../dtos/book-dtos/models';
+import type { ActiveAuthorLookupDto } from '../dtos/author-dtos/models';
+import type { AuthorLookupDto, BookDto, CreateUpdateBookDto } from '../dtos/book-dtos/models';
 
 @Injectable({
   providedIn: 'root',
@@ -31,6 +32,22 @@ export class BookService {
     this.restService.request<any, BookDto>({
       method: 'GET',
       url: `/api/app/book/${id}`,
+    },
+    { apiName: this.apiName,...config });
+  
+
+  getActiveAuthorLookup = (config?: Partial<Rest.Config>) =>
+    this.restService.request<any, ListResultDto<ActiveAuthorLookupDto>>({
+      method: 'GET',
+      url: '/api/app/book/active-author-lookup',
+    },
+    { apiName: this.apiName,...config });
+  
+
+  getAuthorLookup = (config?: Partial<Rest.Config>) =>
+    this.restService.request<any, ListResultDto<AuthorLookupDto>>({
+      method: 'GET',
+      url: '/api/app/book/author-lookup',
     },
     { apiName: this.apiName,...config });
   

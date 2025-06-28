@@ -4,6 +4,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AuthorDto } from '@proxy/dtos/author-dtos';
 import { AuthorService } from '@proxy/servises';
+import { LocalizationService } from '@abp/ng.core';
+
 
 @Component({
   selector: 'app-author',
@@ -25,7 +27,9 @@ export class AuthorComponent implements OnInit {
     public readonly list: ListService,
     private authorService: AuthorService,
     private fb: FormBuilder,
-    private confirmation: ConfirmationService
+    private confirmation: ConfirmationService,
+    private localization: LocalizationService ,
+ 
   ) {}
 
   ngOnInit(): void {
@@ -109,4 +113,12 @@ export class AuthorComponent implements OnInit {
         }
       });
   }
+
+toggleActiveStatus(author: AuthorDto) {
+  this.authorService.setActiveStatus(author.id, !author.isActive)
+    .subscribe(() => {
+      author.isActive = !author.isActive;
+      console.log('تم تحديث حالة المؤلف بنجاح');
+    });
+}
 }

@@ -13,7 +13,7 @@ namespace Acme.Book.Author
         public string Name { get; private set; }
         public DateTime BirthDate { get; set; }
         public string ShortBio { get; set; }
-
+        public bool IsActive { get; set; }
         private AuthorEntity()
         {
             

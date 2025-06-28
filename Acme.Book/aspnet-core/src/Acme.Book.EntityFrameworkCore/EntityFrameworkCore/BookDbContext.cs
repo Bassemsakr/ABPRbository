@@ -85,6 +85,7 @@ public class BookDbContext :
             
             b.ConfigureByConvention(); 
             b.Property(x => x.Name).IsRequired().HasMaxLength(128);
+            b.HasOne<AuthorEntity>().WithMany().HasForeignKey(x => x.AuthorId).IsRequired();
         });
         builder.Entity<AuthorEntity>(b =>
         {

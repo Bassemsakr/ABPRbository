@@ -23,5 +23,7 @@ namespace Acme.Book.Dtos.BookDtos
 
         [Required]
         public float Price { get; set; }
+        public Guid AuthorId { get; set; }
+
     }
 }

@@ -23,7 +23,8 @@ namespace Acme.Book.Author
         public async Task<AuthorEntity> CreateAsync(
             string name,
             DateTime birthDate,
-            string? shortBio = null)
+            string? shortBio = null,
+             bool isActive = false)
         {
             Check.NotNullOrWhiteSpace(name, nameof(name));
 
@@ -38,7 +39,8 @@ namespace Acme.Book.Author
                 name,
                 birthDate,
                 shortBio
-            );
+            )
+            { IsActive = isActive };
         }
 
         public async Task ChangeNameAsync(

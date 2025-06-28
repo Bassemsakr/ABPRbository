@@ -3,9 +3,10 @@ import { Confirmation, ConfirmationService } from '@abp/ng.theme.shared';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BookDtos } from '@proxy/dtos';
-import { BookDto } from '@proxy/dtos/book-dtos';
+import { AuthorLookupDto, BookDto } from '@proxy/dtos/book-dtos';
 import { bookTypeOptions } from '@proxy/enums';
 import { BookService } from '@proxy/servises';
+import { map, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-book',
@@ -16,11 +17,18 @@ import { BookService } from '@proxy/servises';
 })
 export class BookComponent implements OnInit {
   book = { items: [], totalCount: 0 } as PagedResultDto<BookDto>;
- isModalOpen = false; 
+   isModalOpen = false; 
    form: FormGroup;
    bookTypes = bookTypeOptions;
-    selectedBook = {} as BookDto;
-  constructor(public readonly list: ListService, private bookService: BookService , private fb: FormBuilder,private confirmation: ConfirmationService ) {}
+   authors$: Observable<AuthorLookupDto[]>;
+   selectedBook = {} as BookDto;
+  constructor(public readonly list: ListService, private bookService: BookService , private fb: FormBuilder,private confirmation: ConfirmationService )
+   {
+    /* this.authors$ = bookService.getAuthorLookup().pipe(map((r) => r.items)); */
+     this.authors$ = this.bookService.getActiveAuthorLookup().pipe(
+      map((r) => r.items)
+    );
+   }
 
   ngOnInit() {
       this.buildForm(); 
@@ -40,6 +48,7 @@ createBook() {
 
 buildForm(book?: BookDto) {
   this.form = this.fb.group({
+    authorId: [this.selectedBook.authorId || null, Validators.required],
     name: [book?.name || '', Validators.required],
     type: [book?.type || null, Validators.required],
     publishDate: [book?.publishDate ? this.parseDate(book.publishDate) : null, Validators.required],

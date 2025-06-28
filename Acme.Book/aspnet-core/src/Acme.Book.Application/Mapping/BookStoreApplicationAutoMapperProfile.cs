@@ -18,6 +18,9 @@ namespace Acme.Book.Mapping
             CreateMap<BooktEntity, BookDto>();
             CreateMap<CreateUpdateBookDto, BooktEntity>();
             CreateMap<AuthorEntity, AuthorDto>();
+            CreateMap<AuthorEntity, AuthorLookupDto>();
+            CreateMap<AuthorEntity, ActiveAuthorLookupDto>();
+
         }
     }
 }

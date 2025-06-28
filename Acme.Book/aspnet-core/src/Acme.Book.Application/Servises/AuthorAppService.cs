@@ -58,7 +58,8 @@ namespace Acme.Book.Servises
             var author = await _authorManager.CreateAsync(
                 input.Name,
                 input.BirthDate,
-                input.ShortBio
+                input.ShortBio,
+                input.IsActive
             );
 
             await _authorRepository.InsertAsync(author);
@@ -76,7 +77,7 @@ namespace Acme.Book.Servises
 
             author.BirthDate = input.BirthDate;
             author.ShortBio = input.ShortBio;
-
+            
             await _authorRepository.UpdateAsync(author);
         }
         public async Task DeleteAsync(Guid id)
@@ -84,7 +85,12 @@ namespace Acme.Book.Servises
             await _authorRepository.DeleteAsync(id);
         }
 
-
+        public async Task SetActiveStatusAsync(Guid id, bool isActive)
+        {
+            var author = await _authorRepository.GetAsync(id);
+            author.IsActive = isActive;
+            await _authorRepository.UpdateAsync(author);
+        }
 
     }
 }

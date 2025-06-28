@@ -17,5 +17,6 @@ namespace Acme.Book.Dtos.AuthorDtos
         public DateTime BirthDate { get; set; }
 
         public string? ShortBio { get; set; }
+        public bool IsActive { get; set; }
     }
 }

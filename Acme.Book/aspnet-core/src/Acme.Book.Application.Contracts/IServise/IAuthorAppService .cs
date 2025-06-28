@@ -20,5 +20,7 @@ namespace Acme.Book.IServise
         Task UpdateAsync(Guid id, UpdateAuthorDto input);
 
         Task DeleteAsync(Guid id);
+
+        Task SetActiveStatusAsync(Guid id, bool isActive);
     }
 }

@@ -44,6 +44,15 @@ export class AuthorService {
     { apiName: this.apiName,...config });
   
 
+  setActiveStatus = (id: string, isActive: boolean, config?: Partial<Rest.Config>) =>
+    this.restService.request<any, void>({
+      method: 'POST',
+      url: `/api/app/author/${id}/set-active-status`,
+      params: { isActive },
+    },
+    { apiName: this.apiName,...config });
+  
+
   update = (id: string, input: UpdateAuthorDto, config?: Partial<Rest.Config>) =>
     this.restService.request<any, void>({
       method: 'PUT',
